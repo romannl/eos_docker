@@ -1,4 +1,4 @@
-version: "3"
+version: "3.5"
 
 services:
   eos:
@@ -6,13 +6,15 @@ services:
     command: /opt/eosio/bin/nodeosd.sh -e --genesis-json /opt/eosio/bin/data-dir/genesis.json
     hostname: nodeosd
     ports:
-      - 8888:8888
-      - 9876:9876
-    expose:
       - "8888"
+      - "9876"
     volumes:
       - nodeos-data-volume:/opt/eosio/bin/data-dir
       - ./config.ini:/opt/eosio/bin/data-dir/config.ini
       - ./genesis.json:/opt/eosio/bin/data-dir/genesis.json
+    tmpfs:
+      - /run
+      - /tmp
 volumes:
   nodeos-data-volume:
+
